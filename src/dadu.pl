@@ -1,0 +1,81 @@
+throwDice:-
+    turn(Turn),
+    Turn is 1,!,
+    write('Sekarang adalah giliran pemain 1'), nl,nl,
+    random(1, 7, X),
+    random(1, 7, Y),
+    write('======================'),nl,
+    write('Dadu 1: '), write(X), nl,
+    write('Dadu 2: '), write(Y), nl,
+    write('======================'),nl,nl,
+    Z is X + Y,
+    player1(Loc),
+    /* cek apakan melalui go */
+    /*Disini masih ada kesalahan di awal permainan karena melalui go maka uang bertambah 5000 di awal throwDice*/
+    checkGo(Loc,Z,T),
+    uangP1(U),
+    incGo(T,Plus),
+    U1 is U + Plus,
+    doubleDice(X,Y,D),
+    updateTurn(Turn,NewTurn,Z,D),
+    aksi(OldAksi),
+    retract(aksi(OldAksi)),
+    asserta(aksi(1)),
+    retract(uangP1(U)),
+    asserta(uangP1(U1)),
+    retract(turn(Turn)),
+    asserta(turn(NewTurn)),
+    player1(NL),
+    cekTaxP1(NL),
+    cekCCP1(NL),
+    cekFCP1(NL),
+    bkrpt,
+    sewaTanah,
+    sewaBangunan1,
+    sewaBangunan2,
+    sewaBangunan3,
+    sewaLandmark.
+
+throwDice :-
+    turn(Turn),
+    Turn is 2,!,
+    write('Sekarang adalah giliran pemain 2'), nl,nl,
+    random(1, 7, X),
+    random(1, 7, Y),
+    write('======================'),nl,
+    write('Dadu 1: '), write(X), nl,
+    write('Dadu 2: '), write(Y), nl,
+    write('======================'),nl,nl,
+    Z is X + Y,
+    player2(Loc),
+    /* cek apakan melalui go */
+    checkGo(Loc,Z,T),
+    uangP2(U),
+    incGo(T,Plus),
+    U1 is U + Plus,
+    doubleDice(X,Y,D),
+    updateTurn(Turn,NewTurn,Z,D),
+    aksi(OldAksi),
+    retract(aksi(OldAksi)),
+    asserta(aksi(2)),
+    retract(uangP2(U)),
+    asserta(uangP2(U1)),
+    retract(turn(Turn)),
+    asserta(turn(NewTurn)),
+    player2(NL),
+    cekTaxP2(NL),
+    cekCCP2(NL),
+    cekFCP2(NL),
+    bkrpt,
+    sewaTanah,
+    sewaBangunan1,
+    sewaBangunan2,
+    sewaBangunan3,
+    sewaLandmark.
+
+/*
+aTurn merupakan fungsi untuk menentukan dadu double dari player 1
+bTurn merupakan fungsi untuk menentukan dadu double dari player 2
+*/
+doubleDice(Y,Y,1):-!.
+doubleDice(_,_,0):-!.
